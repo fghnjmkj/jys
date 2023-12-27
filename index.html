@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>저녁 메뉴 추천</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>오늘의 저녁 메뉴는?</h1>
+  <p id="menu">메뉴를 추천받으려면 버튼을 눌러주세요!</p>
+  <img id="menuImage" src="" alt="음식 이미지">
+  <button id="menuButton">메뉴 추천받기</button>
+
+  <script>
+    const menuList = [
+      { name: "피자", image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTEwMDFfMjQx%2FMDAxNjMzMDU1ODg5OTY3.l-SMicvZM9Unn1lfszh2Q0F3Kr3g4yVkm0tOD49c1Zcg.X6PBqYXGhUAIq-8PQiHhwn_DHPVIMDaiJSTtjTeY6Zkg.JPEG.gurigurikei%2F12.jpg&type=a340" },
+      { name: "스테이크", image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimage.utoimage.com%2Fpreview%2Fcp871385%2F2019%2F08%2F201908000470_800.jpg&type=a340" },
+      { name: "짜장면", image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTEwMDhfMTQw%2FMDAxNjMzNjU1MzcwNzcz.QFvM_RUteujRVmv1o1lEkQufzPjPHY_T2LV7pGM1_X8g.aLQ07rmaSVd3Pr9KLQYrSm-E7HLJx1CS_D7912GvV5og.JPEG.gurigurikei%2F67.jpg&type=a340" },
+      { name: "초밥", image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fcafefiles.naver.net%2FMjAyMDA3MDZfMTk3%2FMDAxNTk0MDA3Nzc4NjQw.fpb83MNGFlt7u06_cL4HMyKHTGfSbhYQH8gITVqAsWsg.PVvJXNVStO3kBPJCAKB_Gx7ly-Cjijag30_XUizICLMg.PNG%2Fsushi_PNG9244.png&type=a340" },
+      { name: "파스타", image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fthumb2.gettyimageskorea.com%2Fimage_preview%2F700%2F201902%2FITTEM2%2FITTEM219011535.jpg&type=a340" },
+      { name: "치킨", image: "https://search.pstatic.net/common/?src=https%3A%2F%2Fmodo-phinf.pstatic.net%2F20170904_6%2F1504508740386kBEhB_PNG%2FmosaouUUtQ.png&type=a340" },
+      // 다른 음식들도 동일한 형식으로 추가
+      { name: "햄버거", image: "https://search.pstatic.net/sunny/?src=http%3A%2F%2Ffile.instiz.net%2Fdata%2Ffile%2F20140128%2F6%2Fa%2Fd%2F6add3c00f067f2c8746a46d3bca0a99e.jpg&type=a340" },
+      { name: "떡볶이", image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi2.ruliweb.com%2Fimg%2F22%2F12%2F24%2F18541542fe8219d5c.jpg&type=a340" },
+      { name: "마라탕", image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F83%2Fe1%2Fac%2F83e1ac9688f6c55eca233d569431c6de.jpg&type=a340" },
+      { name: "갈비찜", image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fthumb2.gettyimageskorea.com%2Fimage_preview%2F700%2F201711%2FMBRF%2FMBRF17018063.jpg&type=a340" },
+      { name: "순대국", image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fthumb2.gettyimageskorea.com%2Fimage_preview%2F700%2F201703%2FMBRF%2FMBRF17002806.jpg&type=a340" },
+      { name: "쌀국수", image: "https://search.pstatic.net/sunny/?src=http%3A%2F%2Fthumb2.gettyimageskorea.com%2Fimage_preview%2F700%2F201703%2FMBRF%2FMBRF17003014.jpg&type=a340" },
+      { name: "타코", image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fcdn.crowdpic.net%2Fdetail-thumb%2Fthumb_d_0C379C2C9D2591B846F465F17D1B9D3B.jpg&type=a340" },
+      // 추가된 음식들
+    ];
+
+    document.getElementById('menuButton').addEventListener('click', suggestMenu);
+
+    function suggestMenu() {
+      const randomIndex = Math.floor(Math.random() * menuList.length);
+      const randomMenu = menuList[randomIndex];
+
+      const menuElement = document.getElementById('menu');
+      menuElement.textContent = `오늘의 저녁 메뉴는 "${randomMenu.name}" 어떠세요?`;
+
+      const menuImageElement = document.getElementById('menuImage');
+      menuImageElement.src = randomMenu.image;
+    }
+  </script>
+</body>
+</html>
